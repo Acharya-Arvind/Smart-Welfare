@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Elaborate Design</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: darkcyan; /* Using darkcyan */
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .profile-name {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: #FF6347; /* Using #FF6347 */
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .profile-details {
+            text-align: left;
+            margin-top: 30px;
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .detail-item {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .detail-item strong {
+            color: #FFD700; /* Using #FFD700 */
+            margin-right: 10px;
+        }
+
+        .back-button {
+            margin-top: 30px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            background-color: #4CAF50; /* Using #4CAF50 */
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button:hover {
+            background-color: #d62828; /* Using #d62828 */
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-card">
+
+    <h2 class="profile-name" th:text="${user.name}">User Name</h2>
+
+
+    <div class="profile-details">
+        <div class="detail-item"><strong>Age:</strong> <span th:text="${user.age}">Age</span></div>
+        <div class="detail-item"><strong>Gender:</strong> <span th:text="${user.gender}">Gender</span></div>
+        <div class="detail-item"><strong>Email:</strong> <span th:text="${user.email}">Email</span></div>
+        <div class="detail-item"><strong>Phone:</strong> <span th:text="${user.phone}">Phone</span></div>
+        <div class="detail-item"><strong>Address:</strong> <span th:text="${user.address}">Address</span></div>
+        <div class="detail-item"><strong>Pincode:</strong> <span th:text="${user.pincode}">Pincode</span></div>
+        <div class="detail-item"><strong>Annual Income:</strong> <span th:text="${user.annualIncome}">Annual Income</span></div>
+        <div class="detail-item"><strong>Employment Status:</strong> <span th:text="${user.employmentStatus}">Employment Status</span></div>
+        <div class="detail-item"><strong>Aadhar Number:</strong> <span th:text="${user.aadharnumber}">Aadhar Number</span></div>
+    </div>
+    <button class="back-button" onclick="window.history.back()">Go Back</button>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background: darkcyan;
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+  }
+  
+  /* Animated Title */
+  .title-container {
+    position: absolute;
+    top: 50px;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .animated-title {
+    font-size: 80px;
+    font-weight: bold;
+    color: #ffffff;
+    animation: fadeInTitle 2s ease-in-out forwards;
+  }
+  
+  @keyframes fadeInTitle {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .form-box {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 50px;
+    width: 350px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 24px;
+    color: #FF6347;
+  }
+  
+  input {
+    width: 100%;
+    padding: 15px;
+    margin: 12px 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 16px;
+  }
+  
+  input:focus {
+    border-color: #FF6347;
+    background-color: #fff3f3;
+  }
+  
+  button {
+    width: 100%;
+    padding: 15px;
+    background-color: #7196db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #FF6347;
+  }
+  
+  .switch-form {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #2575fc;
+  }
+  
+  .switch-form span {
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .admin-option {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  
+  .admin-option span {
+    cursor: pointer;
+    font-weight: bold;
+    color: #FFD700;
+  }
+  
+  .admin-option span:hover {
+    color: #FF6347;
+  }
+  
+  /* Initially hide the signup and admin login forms */
+  #signup-form {
+    display: none;
+  }
+  
+  #admin-login-form {
+    display: none;
+  }
+  

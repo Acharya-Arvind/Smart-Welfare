@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartWelfare - Login & Signup</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Animated Title -->
+  <div class="title-container">
+    <h1 class="animated-title">Smart-Welfare</h1>
+  </div>
+
+  <div class="container">
+    <!-- Login Form -->
+    <div class="form-box" id="login-form">
+      <h2>Login</h2>
+      <form action="user-login" method="post">
+        <input type="email" id="login-email" placeholder="Email" name="login-email" required>
+        <input type="password" id="login-password" placeholder="Password" name="login-password" required>
+        <button type="submit"><a href="home.html">Login</a></button>
+        
+        <p class="switch-form">Don't have an account? <span id="to-signup"><a href="Signup-front">Sign Up</a></span></p>
+        <!-- Admin Login Option -->
+        <p class="admin-option">Are you an admin? <span id="to-admin-login">Admin Login</span></p>
+      </form>
+    </div>
+
+    <!-- Admin Login Form (Initially hidden) -->
+    <div class="form-box" id="admin-login-form">
+      <h2>Admin Login</h2>
+      <form action="admin-login" method="post">
+        <input type="email" id="admin-email" name="admin-email" placeholder="Admin Email" required>
+        <input type="password" id="admin-password" name="admin-password" placeholder="Admin Password" required>
+        <button type="submit">Admin Login</button>
+        <p class="switch-form"><span id="to-login-from-admin">Back to Login</span></p>
+      </form>
+    </div>
+
+    <!-- Signup Form -->
+    <div class="form-box" id="signup-form">
+      <h2>Sign Up</h2>
+      <form action="" method="post">
+        <input type="text" id="signup-name" placeholder="Name" required>
+        <input type="email" id="signup-email" placeholder="Email" required>
+        <input type="password" id="signup-password" placeholder="Password" required>
+        <button type="submit"><a href="newprofile">Sign Up</a></button>
+        <p class="switch-form">Already have an account? <span id="to-login">Login</span></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

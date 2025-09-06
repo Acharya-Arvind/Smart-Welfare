@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Scheme</title>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: darkcyan;
+      background-size: 400% 400%;
+      animation: gradientAnimation 10s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding-top: 22px;
+      padding-bottom: 22px;
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Container Styles */
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-out forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Title Styles */
+    h2 {
+      font-size: 32px;
+      color: #FF6347;
+      text-align: center;
+      margin-bottom: 20px;
+      animation: fadeInTitle 2s ease-in-out forwards;
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    @keyframes fadeInTitle {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      50% {
+        opacity: 0.7;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Form Styles */
+    .donation-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-field label {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    .form-field input, .form-field textarea, .form-field input[type="file"] {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    .form-field textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .form-field input:focus, .form-field textarea:focus, .form-field input[type="file"]:focus {
+      outline: none;
+      border-color: #4CAF50;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      padding: 15px 25px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #45a049;
+    }
+
+    /* Back Button */
+    .back-btn {
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #d62828;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <button class="back-btn" onclick="window.history.back()">Back to Dashboard</button>
+  <h2>Add New Scheme</h2>
+  <form action="get-scheme" class="donation-form" id="addSchemeForm" method="post" >
+    <div class="form-field">
+      <label for="schemeName">Scheme Name:</label>
+      <input type="text" id="schemeName" name="schemeName" required>
+    </div>
+    <div class="form-field">
+      <label for="schemeDescription">Description:</label>
+      <textarea id="schemeDescription" name="description" rows="5" required></textarea>
+    </div>
+    <div class="form-field">
+      <label for="schemeCriteria">Criteria:</label>
+      <textarea id="schemeCriteria" name="criteria" rows="5" required></textarea>
+    </div>
+    <button type="submit" class="submit-btn">Add Scheme</button>
+  </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User management</title>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: darkcyan;
+      background-size: 400% 400%;
+      animation: gradientAnimation 10s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding-top: 22px;
+      padding-bottom: 22px;
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Container Styles */
+    .container {
+      width: 80%;
+      height: 90vh;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      overflow-Y: scroll;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      font-size: 32px;
+      color: #FF6347;
+      text-align: center;
+      margin-bottom: 20px;
+      animation: fadeInTitle 2s ease-in-out forwards;
+    }
+
+    @keyframes fadeInTitle {
+      0% {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      50% {
+        opacity: 0.5;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Button Styles */
+    .back-btn {
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #d62828;
+    }
+    .ban-btn {
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .ban-btn:hover {
+      background-color: #d62828;
+    }
+
+    /* Table Styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      border-color: black;
+      animation: fadeInTable 2s ease-in-out forwards;
+    }
+
+    @keyframes fadeInTable {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      50% {
+        opacity: 0.5;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    td {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+
+    /* Status Colors */
+    .pending {
+      color: orange;
+    }
+
+    .rejected {
+      color: red;
+    }
+
+    .under-review {
+      color: orange;
+    }
+
+    .approved {
+      color: green;
+    }
+
+    /* Search Input Styles */
+    #userSearch {
+      margin-bottom: 20px;
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      width: 300px;
+      font-size: 16px;
+      margin-left: auto; /* Push to the right */
+      display: block; /* Ensure it takes full width of its container */
+    }
+
+    #userSearch:focus {
+      outline: none;
+      border-color: #4CAF50;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    }
+    .search-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+  </style>
+  <script>
+    function changeUserStatus(buttonElement) { // Receive the button element
+      const userId = buttonElement.getAttribute('user_id'); // Get user_id from the clicked button
+        const statusCell = buttonElement.closest('tr').querySelector('td:nth-child(5)'); // Find the status cell
+
+         // Make the API call to update the status
+         fetch(`/user/status/${userId}`)
+         .then(response => {
+             if (!response.ok) {
+                 throw new Error(`HTTP error! status: ${response.status}`);
+             }
+             return response.text(); // Or response.json() if your server returns JSON
+         })
+         .then(data => {
+             console.log('Server response:', data);
+             // Update the button text and status in the table
+             buttonElement.textContent = buttonElement.textContent === "Ban/UnBan" ? "Unban" : "Ban";
+             if (statusCell) {
+                 statusCell.textContent = statusCell.textContent === "VERIFIED USER" ? "BANNED" : "VERIFIED USER";
+                 statusCell.className = statusCell.textContent === "BANNED" ? "rejected" : "approved";
+             }
+         })
+         .catch(error => {
+             console.error('Error:', error);
+             // Handle errors (e.g., show a message to the user)
+             alert('Failed to update user status. Please try again.');
+             // Optionally, revert the status in the table if the update failed (you had this already)
+             
+         });
+     }
+
+     function filterUsers() {
+       const input = document.getElementById('userSearch');
+       const filter = input.value.toUpperCase();
+       const table = document.querySelector('table');
+       const rows = table.getElementsByTagName('tr');
+
+       for (let i = 1; i < rows.length; i++) { // Start from 1 to skip the header row
+         let found = false;
+         const cells = rows[i].getElementsByTagName('td');
+         for (let j = 0; j < cells.length; j++) {
+           const cellText = cells[j].textContent.toUpperCase();
+           if (cellText.indexOf(filter) > -1) {
+             found = true;
+             break;
+           }
+         }
+         if (found) {
+           rows[i].style.display = '';
+         } else {
+           rows[i].style.display = 'none';
+         }
+       }
+     }
+  </script>
+</head>
+<body>
+
+<div class="container">
+  <button class="back-btn" onclick="window.history.back()">Back to Dashboard</button>
+
+  <h2>List Of Users</h2>
+  <div class="search-container">
+    <input type="text" id="userSearch" placeholder="Search users..." oninput="filterUsers()">
+  </div>
+  <table>
+    <thead>
+    <tr>
+      <th>User ID</th>
+      <th>User name</th>
+      <th>User mail</th>
+      <th>User Phone</th>
+      <th>User status</th>
+      <th>BAN/UNBAN</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${applications1}">
+      <td th:text="${user.id}"></td>
+      <td th:text="${user.name}"></td>
+      <td th:text="${user.email}"></td>
+      <td th:text="${user.phone}"></td>
+      <td th:text="${user.status}" th:class="${user.status == 'VERIFIED USER' ? 'approved' :  'rejected'}"></td>
+      <td button class="ban-btn" th:onclick="changeUserStatus(this)" th:user_id="${user.id}">Ban/UnBan</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
